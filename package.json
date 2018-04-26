@@ -1,6 +1,6 @@
 {
   "name": "node-slack-logs",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Logs integrate with Slack Application",
   "main": "index.js",
   "scripts": {
