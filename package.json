@@ -1,0 +1,27 @@
+{
+  "name": "node-slack-logs",
+  "version": "1.0.0",
+  "description": "Logs integrate with Slack Application",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ivoglent/node-slack-logs.git"
+  },
+  "keywords": [
+    "nodejs",
+    "slack",
+    "logs"
+  ],
+  "author": "Long Nguyen",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ivoglent/node-slack-logs/issues"
+  },
+  "homepage": "https://github.com/ivoglent/node-slack-logs#readme",
+  "dependencies": {
+    "@slack/client": "^4.2.0"
+  }
+}
