@@ -30,7 +30,7 @@ class SlackLogger {
          * @type {Console}
          * @private
          */
-        this._console = console;
+        this._console = {};
         /**
          * Slack instance
          * @type {null}
@@ -44,6 +44,9 @@ class SlackLogger {
          */
         this._format = 'json'; //line
         this._appName = appName;
+        for (let k in console) {
+            this._console[k] = console[k];
+        }
     }
     /**
      *
@@ -120,7 +123,7 @@ class SlackLogger {
      * @private
      */
     _sendToSlack(message, type) {
-        this._slack.send(`*Log [${type}] from : ${this._appName}` + ':*\n--------------------------------------------\n' + message, function (err, res) {
+        this._slack.send(`*[${new Date().toISOString()}] : Log [${type}] from : ${this._appName}` + ':*\n--------------------------------------------\n' + message, function (err, res) {
             //Done
         });
     }
@@ -147,6 +150,7 @@ class SlackLogger {
      */
     debug(message, ...optionalParams) {
         this._sendToSlack(this._serilizeMessage(message, optionalParams), 'DEBUG');
+        this._console.debug(message, optionalParams);
     }
     /**
      *
@@ -155,6 +159,7 @@ class SlackLogger {
      */
     error(message, ...optionalParams) {
         this._sendToSlack(this._serilizeMessage(message, optionalParams), 'ERROR');
+        this._console.error(message, optionalParams);
     }
     /**
      *
@@ -163,6 +168,7 @@ class SlackLogger {
      */
     info(message, ...optionalParams) {
         this._sendToSlack(this._serilizeMessage(message, optionalParams), 'INFO');
+        this._console.info(message, optionalParams);
     }
     /**
      *
@@ -171,6 +177,7 @@ class SlackLogger {
      */
     log(message, ...optionalParams) {
         this._sendToSlack(this._serilizeMessage(message, optionalParams), 'LOG');
+        this._console.log(message, optionalParams);
     }
     /**
      *
@@ -193,6 +200,7 @@ class SlackLogger {
      */
     trace(message, ...optionalParams) {
         this._sendToSlack(this._serilizeMessage(message, optionalParams), 'TRACE');
+        this._console.trace(message, optionalParams);
     }
     /**
      *
@@ -201,6 +209,7 @@ class SlackLogger {
      */
     warn(message, ...optionalParams) {
         this._sendToSlack(this._serilizeMessage(message, optionalParams), 'WARN');
+        this._console.warn(message, optionalParams);
     }
 }
 exports.SlackLogger = SlackLogger;
