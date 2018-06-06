@@ -49,6 +49,30 @@ export class SlackLogger {
         }
     }
 
+    /**
+    *
+    * Get local IP address
+    **/
+    private getIpAddress() {
+        var
+            // Local ip address that we're trying to calculate
+            address
+            // Provides a few basic operating-system related utility functions (built-in)
+            ,os = require('os')
+            // Network interfaces
+            ,ifaces = os.networkInterfaces();
+
+
+        // Iterate over interfaces ...
+        for (var dev in ifaces) {
+            var iface = ifaces[dev].filter(function(details) {
+                return details.family === 'IPv4' && details.internal === false;
+            });
+
+            if(iface.length > 0) address = iface[0].address;
+        }
+        return address;
+    }
 
     /**
      *
@@ -127,7 +151,8 @@ export class SlackLogger {
      * @private
      */
     _sendToSlack(message, type) {
-        this._slack.send(`*[${new Date().toISOString()}] : Log [${type}] from : ${this._appName}` + ':*\n--------------------------------------------\n' + message, function(err, res) {
+        let ip = this.getIpAddress();
+        this._slack.send(`*[${new Date().toISOString()}] : Log [${type}] from : ${this._appName} [${ip}]` + ':*\n--------------------------------------------\n' + message, function(err, res) {
             //Done
         });
 
